@@ -21,7 +21,7 @@ function NewPostForm(props) {
     <Modals>
       <Form
         method="post"
-        className="2xl:h-[60vh] 2xl:w-[30vw] bg-[#73ebb2] flex justify-start items-center flex-col gap-4 rounded-md p-4"
+        className="2xl:h-[50vh] 2xl:w-[30vw] bg-[#73ebb2] flex justify-start items-center flex-col gap-4 rounded-md p-4"
       >
         <div className="flex flex-col justify-start items-start w-full gap-2">
           <label htmlFor="nameField" className="text-[#317987]">
