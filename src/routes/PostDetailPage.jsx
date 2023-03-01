@@ -15,7 +15,6 @@ function PostDetailPage() {
 export default PostDetailPage
 
 export async function loader({ params }) {
-  console.log(params.id);
   const response = await fetch(`https://react-todo-54e07-default-rtdb.firebaseio.com/posts.json`)
   const data = await response.json();
   return data;
