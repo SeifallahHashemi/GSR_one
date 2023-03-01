@@ -4,3 +4,6 @@
     -webkit-line-clamp: 1;
     overflow: hidden;
 }
+.postListItem:hover span {
+    opacity: 1;
+}

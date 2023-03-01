@@ -5,9 +5,9 @@ function PostDetailPage() {
   const {id} = useParams();
   const posts = useLoaderData();
   return (
-    <div className='py-4'>
+    <div className='py-4 mt-20 border border-gray-800 px-2 rounded-xl'>
       <h2 className='text-center text-lg text-red-900'>{posts[id].name}</h2>
-      <p className='text-right mt-4'>{posts[id].text}</p>
+      <p className='text-center mt-4'>{posts[id].text}</p>
     </div>
   )
 }

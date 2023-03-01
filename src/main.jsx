@@ -1,23 +1,68 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
+import React, { lazy, Suspense } from "react";
+import ReactDOM, { createRoot } from "react-dom/client";
 import "./index.css";
-import ModalContextProvider from "./store/modal-context";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import MainHeader from "./routes/MainHeader";
-import PostDetailPage, { loader as postsDetailLoader } from "./routes/PostDetailPage";
-import PostsList, { loader as postsListLoader } from "./routes/PostsList";
+import { loader as postsDetailLoader } from "./routes/PostDetailPage";
+import { loader as postsListLoader } from "./routes/PostsList";
+import Loading from "./components/loading-spinner/Loading";
+import { action as newPostAction } from "./routes/NewPostForm";
+
+const PostDetailPage = lazy(() => import("./routes/PostDetailPage"));
+const RootLayout = lazy(() => import("./routes/RootLayout"));
+const Posts = lazy(() => import("./routes/Posts"));
+const NewPostForm = lazy(() => import("./routes/NewPostForm"));
 
 const router = createBrowserRouter([
-  { path: "/", element: <App />, children: [
-    { path: "/", element: <MainHeader />, children: [{ path: "detailPage/:id", element: <PostDetailPage />, loader: postsDetailLoader}, { path: "/", element: <PostsList />, loader: postsListLoader}]}
-  ]}
+  {
+    path: "/",
+    element: (
+      <Suspense fallback={<Loading />}>
+        <RootLayout />
+      </Suspense>
+    ),
+    children: [
+      {
+        path: "/",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Posts />
+          </Suspense>
+        ),
+        loader: postsListLoader,
+        children: [
+          {
+            path: "/detailPage/:id",
+            element: (
+              <Suspense fallback={<Loading />}>
+                <PostDetailPage />
+              </Suspense>
+            ),
+            loader: postsDetailLoader,
+          },
+          {
+            path: "/createPost",
+            element: (
+              <Suspense fallback={<Loading />}>
+                <NewPostForm />
+              </Suspense>
+            ),
+            action: newPostAction,
+          },
+        ],
+      },
+    ],
+  },
 ]);
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+const root = createRoot(document.getElementById("root"));
+root.render(
   <React.StrictMode>
-    <ModalContextProvider>
-      <RouterProvider router={router}/>
-    </ModalContextProvider>
+    <RouterProvider router={router} />
   </React.StrictMode>
-);
+)
+
+/* ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+); */
