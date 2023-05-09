@@ -24,6 +24,8 @@ const Post = (props) => {
     <Link to={`detailPage/${props.id}`}>
       <motion.li
         layout
+        initial={"open"}
+        animate={"closed"}
         variants={variants}
         exit={{ opacity: 0, y: 0 }}
         className={`h-24 backdrop-blur-md bg-white/30 rounded-lg px-2 flex flex-col justify-evenly cursor-pointer relative ${classes.postListItem}`}

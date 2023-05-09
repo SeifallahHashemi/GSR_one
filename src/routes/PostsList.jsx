@@ -24,7 +24,7 @@ const PostsList = () => {
   const removePostHandler = async (id) => {
     const updatedPosts = postsItem.filter((post) => post.id !== id);
     await fetch(
-      "https://react-todo-54e07-default-rtdb.firebaseio.com/posts.json",
+      "https://react-todo-app-920a7-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json",
       {
         method: "PUT",
         body: JSON.stringify(updatedPosts),
@@ -66,7 +66,7 @@ export default PostsList;
 
 export async function loader() {
   const response = await fetch(
-    "https://react-todo-54e07-default-rtdb.firebaseio.com/posts.json"
+    "https://react-todo-app-920a7-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json"
   );
   if (!response.ok) {
     throw new Error(response.message || "something went wrong");

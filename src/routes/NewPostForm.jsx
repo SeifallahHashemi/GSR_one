@@ -67,7 +67,7 @@ export async function action({ request }) {
   const formData = await request.formData();
   const postData = Object.fromEntries(formData);
   await fetch(
-    "https://react-todo-54e07-default-rtdb.firebaseio.com/posts.json",
+    "https://react-todo-app-920a7-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json",
     {
       method: "POST",
       body: JSON.stringify({...postData, id: Math.random().toString(32)}),
